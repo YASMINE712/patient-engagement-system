@@ -1,0 +1,9 @@
+Flask==2.3.2
+Werkzeug==2.3.3
+Flask-SQLAlchemy==3.1.1
+NumPy>=1.23.2
+pandas==1.5.3
+scikit-learn==1.2.0
+Flask-Mail==0.9.1
+Twilio==6.17.0
+

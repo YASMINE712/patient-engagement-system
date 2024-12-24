@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Health and Lifestyle Questionnaire</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
+    <style> /* General Styles */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f7f8fa;
+    margin: 0;
+    padding: 0;
+    color: #333;
+    line-height: 1.6;
+}
+
+h1, h2 {
+    text-align: center;
+    margin-bottom: 20px;
+    color: #444;
+}
+
+.container {
+    max-width: 600px;
+    margin: 40px auto;
+    background: #fff;
+    padding: 20px 30px;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Form Group */
+.form-group {
+    margin-bottom: 20px;
+}
+
+label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: bold;
+    color: #555;
+}
+
+/* Input Fields */
+input[type="text"],
+input[type="email"],
+input[type="number"],
+input[type="password"],
+select {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 16px;
+    box-sizing: border-box;
+    transition: border-color 0.3s;
+}
+
+input:focus,
+select:focus {
+    border-color: #007BFF;
+    outline: none;
+    box-shadow: 0 0 4px rgba(0, 123, 255, 0.5);
+}
+
+/* Radio Buttons and Checkboxes */
+input[type="radio"],
+input[type="checkbox"] {
+    margin-right: 10px;
+    transform: scale(1.2);
+}
+
+/* Dropdown */
+select {
+    appearance: none;
+    background: url("data:image/svg+xml;charset=US-ASCII,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 4 5'%3E%3Cpath fill='%23999' d='M2 0L0 2h4zm0 5L0 3h4z'/%3E%3C/svg%3E") no-repeat right 10px center;
+    background-size: 8px 10px;
+}
+
+/* Submit Button */
+button {
+    width: 100%;
+    padding: 10px;
+    background-color: #007BFF;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .container {
+        padding: 15px 20px;
+    }
+
+    label {
+        font-size: 14px;
+    }
+
+    input[type="text"],
+    input[type="email"],
+    input[type="number"],
+    input[type="password"],
+    select {
+        font-size: 14px;
+    }
+
+    button {
+        font-size: 14px;
+    }
+}
+
+/* Accessibility */
+input[type="radio"]:focus,
+input[type="checkbox"]:focus {
+    outline: 2px dashed #007BFF;
+    outline-offset: 4px;
+}
+
+a {
+    color: #007BFF;
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+</style>
+</head>
+<body>
+    <header>
+        <h1>Health and Lifestyle Questionnaire</h1>
+    </header>
+
+    <div class="container">
+        <h2>Complete the form to provide your details</h2>
+        <form action="{{ url_for('questionnaire') }}" method="POST">
+            <!-- Gender -->
+            <div class="form-group">
+                <label for="gender">Gender:</label>
+                <select name="gender" id="gender" required>
+                    <option value="" disabled selected>Select your gender</option>
+                    <option value="Male">Male</option>
+                    <option value="Female">Female</option>
+                </select>
+            </div>
+
+            <!-- Age -->
+            <div class="form-group">
+                <label for="age">Age:</label>
+                <input type="number" id="age" name="age" min="18" max="100" required>
+            </div>
+
+            <!-- Occupation -->
+            <div class="form-group">
+                <label for="occupation">Occupation:</label>
+                <select name="occupation" id="occupation" required>
+                    <option value="" disabled selected>Select your occupation</option>
+                    <option value="Doctor">Doctor</option>
+                    <option value="Nurse">Nurse</option>
+                    <option value="Engineer">Engineer</option>
+                    <option value="Teacher">Teacher</option>
+                    <option value="Sales Representative">Sales Representative</option>
+                    <option value="Software Engineer">Software Engineer</option>
+                </select>
+            </div>
+
+            <!-- Sleep Duration -->
+            <div class="form-group">
+                <label for="sleep_duration">Sleep Duration (hours per night):</label>
+                <input type="number" id="sleep_duration" name="sleep_duration" min="4" max="10" step="0.1" required>
+            </div>
+
+            <!-- Quality of Sleep -->
+            <div class="form-group">
+                <label for="quality_of_sleep">Quality of Sleep (1-10):</label>
+                <input type="number" id="quality_of_sleep" name="quality_of_sleep" min="1" max="10" required>
+            </div>
+
+            <!-- Physical Activity Level -->
+            <div class="form-group">
+                <label for="physical_activity_level">Physical Activity Level (1-100):</label>
+                <input type="number" id="physical_activity_level" name="physical_activity_level" min="1" max="100" required>
+            </div>
+
+            <!-- Stress Level -->
+            <div class="form-group">
+                <label for="stress_level">Stress Level (1-10):</label>
+                <input type="number" id="stress_level" name="stress_level" min="1" max="10" required>
+            </div>
+
+            <!-- BMI Category -->
+            <div class="form-group">
+                <label for="bmi_category">BMI Category:</label>
+                <select name="bmi_category" id="bmi_category" required>
+                    <option value="" disabled selected>Select BMI category</option>
+                    <option value="Underweight">Underweight</option>
+                    <option value="Normal">Normal</option>
+                    <option value="Overweight">Overweight</option>
+                    <option value="Obese">Obese</option>
+                </select>
+            </div>
+
+            <!-- Blood Pressure -->
+            <div class="form-group">
+                <label for="blood_pressure">Blood Pressure (e.g., 120/80):</label>
+                <input type="text" id="blood_pressure" name="blood_pressure" placeholder="Enter your blood pressure" required>
+            </div>
+
+            <!-- Heart Rate -->
+            <div class="form-group">
+                <label for="heart_rate">Heart Rate (bpm):</label>
+                <input type="number" id="heart_rate" name="heart_rate" min="40" max="200" required>
+            </div>
+
+            <!-- Daily Steps -->
+            <div class="form-group">
+                <label for="daily_steps">Daily Steps:</label>
+                <input type="number" id="daily_steps" name="daily_steps" min="1000" max="20000" step="500" required>
+            </div>
+
+            <!-- Sleep Disorder -->
+            <div class="form-group">
+                <label for="sleep_disorder">Sleep Disorder:</label>
+                <select name="sleep_disorder" id="sleep_disorder">
+                    <option value="" disabled selected>Select an option</option>
+                    <option value="None">None</option>
+                    <option value="Insomnia">Insomnia</option>
+                    <option value="Sleep Apnea">Sleep Apnea</option>
+                </select>
+            </div>
+
+           
+
+            <!-- Submit Button -->
+            <div class="form-group">
+                <button type="submit">Submit</button>
+            </div>
+        </form>
+    </div>
+</body>
+</html>

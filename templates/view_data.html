@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Your Data</title>
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        table, th, td {
+            border: 1px solid black;
+        }
+        th, td {
+            padding: 10px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+    </style>
+</head>
+<body>
+    <h1>Your Data</h1>
+    
+    <!-- Display a message if there is no data -->
+   <!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Your Data</title>
+</head>
+<body>
+
+    <table border="1">
+        <thead>
+            <tr>
+                <th>Gender</th>
+                <th>Age</th>
+                <th>Occupation</th>
+                <th>Sleep Duration</th>
+                <th>Quality of Sleep</th>
+                <th>Physical Activity Level</th>
+                <th>Stress Level</th>
+                <th>BMI Category</th>
+                <th>Blood Pressure</th>
+                <th>Heart Rate</th>
+                <th>Daily Steps</th>
+                <th>Sleep Disorder</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for row in data %}
+            <tr>
+                <td>{{ row.gender }}</td>
+                <td>{{ row.age }}</td>
+                <td>{{ row.occupation }}</td>
+                <td>{{ row.sleep_duration }}</td>
+                <td>{{ row.quality_of_sleep }}</td>
+                <td>{{ row.physical_activity_level }}</td>
+                <td>{{ row.stress_level }}</td>
+                <td>{{ row.bmi_category }}</td>
+                <td>{{ row.blood_pressure }}</td>
+                <td>{{ row.heart_rate }}</td>
+                <td>{{ row.daily_steps }}</td>
+                <td>{{ row.sleep_disorder }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>
+</body>
+</html>

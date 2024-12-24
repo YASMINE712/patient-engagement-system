@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thank You</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f7f8fa;
+            margin: 0;
+            padding: 0;
+            color: #333;
+        }
+
+        header {
+            background-color: #007BFF;
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 30px auto;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        .navigation-links a {
+            display: inline-block;
+            margin: 5px 10px;
+            padding: 10px 15px;
+            background-color: #6c757d;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            font-size: 14px;
+            transition: background-color 0.3s;
+        }
+
+        .navigation-links a:hover {
+            background-color: #5a6268;
+        }
+
+        h2 {
+            color: #007BFF;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .recommendations-section {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .recommendations-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .recommendation-item {
+            background: #f9f9f9;
+            margin-bottom: 20px;
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            text-align: left;
+        }
+
+        .recommendation-item h3 {
+            margin-top: 0;
+            color: #007BFF;
+        }
+
+        .recommendation-item ul {
+            margin-left: 20px;
+        }
+
+        button {
+            width: 100%;
+            padding: 15px;
+            background-color: #007BFF;
+            color: white;
+            font-size: 16px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Thank You!</h1>
+    </header>
+
+    <div class="container">
+        <p>Welcome, {{ session['username'] }}! Thank you for trusting us.</p>
+        <div class="navigation-links">
+            <a href="{{ url_for('questionnaire') }}">Go back to Questionnaire</a>
+            <a href="{{ url_for('your_data') }}">View your submitted data</a>
+            <a href="{{ url_for('logout') }}">Logout</a>
+        </div>
+    </div>
+
+    <div class="recommendations-section">
+        <h2>Your Recommendations</h2>
+
+        {% if recommendations %}
+        <form method="POST" action="/feedback">
+            <ul class="recommendations-list">
+                {% for category, recs in recommendations.items() %}
+                    <li class="recommendation-item">
+                        <h3>{{ category }}</h3>
+                        <ul>
+                            {% for rec in recs %}
+                                <li>
+                                    {{ rec }}
+                                    <label><input type="radio" name="feedback[{{ category }}][{{ loop.index0 }}]" value="1" required> Useful</label>
+                                    <label><input type="radio" name="feedback[{{ category }}][{{ loop.index0 }}]" value="-1" required> Not Useful</label>
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    </li>
+                {% endfor %}
+            </ul>
+            <button type="submit">Submit Feedback</button>
+        </form>
+        {% else %}
+            <p>No recommendations available at this time.</p>
+        {% endif %}
+    </div>
+</body>
+</html>

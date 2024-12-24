@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign In / Sign Up</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
+</head>
+<body>
+
+    <div class="auth-container">
+        <div class="auth-box">
+            <h2>Sign In / Sign Up</h2>
+            
+            <!-- Sign Up Form -->
+            <form action="{{ url_for('signup') }}" method="POST">
+                <div class="input-group">
+                    <label for="username">Username</label>
+                    <input type="text" name="username" id="username" required>
+                </div>
+                <div class="input-group">
+                    <label for="email">Email</label>
+                    <input type="email" name="email" id="email" required>
+                </div>
+                <div class="input-group">
+                    <label for="password">Password (8+ characters)</label>
+                    <input type="password" name="password" id="password" required minlength="8">
+                </div>
+                <div class="input-group">
+                    <button type="submit" class="button">Sign Up</button>
+                </div>
+            </form>
+
+            <!-- Login Form -->
+            <form action="{{ url_for('login') }}" method="POST">
+                <div class="input-group">
+                    <label for="login-username">Username</label>
+                    <input type="text" name="username" id="login-username" required>
+                </div>
+                <div class="input-group">
+                    <label for="login-password">Password</label>
+                    <input type="password" name="password" id="login-password" required minlength="8">
+                </div>
+                <div class="input-group">
+                    <button type="submit" class="button">Log In</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+</body>
+</html>
