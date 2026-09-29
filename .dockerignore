@@ -1,0 +1,13 @@
+.git
+.venv
+.test-runs
+**/__pycache__
+instance
+.env
+.env.*
+data/raw
+data/processed
+data/synthetic
+artifacts
+*.db
+*.sqlite*

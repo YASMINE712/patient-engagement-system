@@ -1,0 +1,206 @@
+{
+  "source": "heartsteps_v1_observed",
+  "task": "Any recorded steps in the next 30 minutes",
+  "target": "steps_next_30m > 0",
+  "positive_label": "Any recorded steps",
+  "negative_label": "Zero recorded steps",
+  "threshold": 0.5,
+  "threshold_protocol": "Fixed at 0.50 before fitting; not tuned on the test set.",
+  "selected_model": "random_forest",
+  "selection_metric": "Maximum validation ROC-AUC",
+  "features": [
+    "age",
+    "gender",
+    "planned_slot",
+    "study_day",
+    "steps_previous_30m",
+    "action"
+  ],
+  "partitions": {
+    "train": {
+      "rows": 3938,
+      "participants": 25,
+      "positive_rows": 2641
+    },
+    "validation": {
+      "rows": 963,
+      "participants": 6,
+      "positive_rows": 663
+    },
+    "test": {
+      "rows": 899,
+      "participants": 6,
+      "positive_rows": 592
+    }
+  },
+  "validation": {
+    "prevalence_baseline": {
+      "rows": 963,
+      "positive_rows": 663,
+      "positive_prevalence": 0.6884735202492211,
+      "accuracy": 0.6884735202492211,
+      "balanced_accuracy": 0.5,
+      "precision": 0.6884735202492211,
+      "recall": 1.0,
+      "f1": 0.8154981549815498,
+      "roc_auc": 0.5,
+      "average_precision": 0.6884735202492211,
+      "brier_score": 0.21479558838968937,
+      "log_loss": 0.6210429880174178,
+      "confusion_matrix": [
+        [
+          0,
+          300
+        ],
+        [
+          0,
+          663
+        ]
+      ]
+    },
+    "logistic_regression": {
+      "rows": 963,
+      "positive_rows": 663,
+      "positive_prevalence": 0.6884735202492211,
+      "accuracy": 0.7123572170301142,
+      "balanced_accuracy": 0.5584087481146305,
+      "precision": 0.7154017857142857,
+      "recall": 0.9668174962292609,
+      "f1": 0.8223220012828736,
+      "roc_auc": 0.6949974861739567,
+      "average_precision": 0.8166894276007324,
+      "brier_score": 0.19559230732016483,
+      "log_loss": 0.5764312642593971,
+      "confusion_matrix": [
+        [
+          45,
+          255
+        ],
+        [
+          22,
+          641
+        ]
+      ]
+    },
+    "random_forest": {
+      "rows": 963,
+      "positive_rows": 663,
+      "positive_prevalence": 0.6884735202492211,
+      "accuracy": 0.7414330218068536,
+      "balanced_accuracy": 0.621500754147813,
+      "precision": 0.7487980769230769,
+      "recall": 0.9396681749622926,
+      "f1": 0.8334448160535117,
+      "roc_auc": 0.7236953242835596,
+      "average_precision": 0.8301197698982682,
+      "brier_score": 0.18231373012173263,
+      "log_loss": 0.547301928536847,
+      "confusion_matrix": [
+        [
+          91,
+          209
+        ],
+        [
+          40,
+          623
+        ]
+      ]
+    }
+  },
+  "test_candidates": {
+    "prevalence_baseline": {
+      "rows": 899,
+      "positive_rows": 592,
+      "positive_prevalence": 0.6585094549499444,
+      "accuracy": 0.6585094549499444,
+      "balanced_accuracy": 0.5,
+      "precision": 0.6585094549499444,
+      "recall": 1.0,
+      "f1": 0.7940979208584842,
+      "roc_auc": 0.5,
+      "average_precision": 0.6585094549499444,
+      "brier_score": 0.22502202408350044,
+      "log_loss": 0.6423505465571904,
+      "confusion_matrix": [
+        [
+          0,
+          307
+        ],
+        [
+          0,
+          592
+        ]
+      ]
+    },
+    "logistic_regression": {
+      "rows": 899,
+      "positive_rows": 592,
+      "positive_prevalence": 0.6585094549499444,
+      "accuracy": 0.7052280311457174,
+      "balanced_accuracy": 0.5825171670041377,
+      "precision": 0.6991473812423873,
+      "recall": 0.9695945945945946,
+      "f1": 0.8124557678697806,
+      "roc_auc": 0.7051787129148693,
+      "average_precision": 0.7980436146828787,
+      "brier_score": 0.20090269980407044,
+      "log_loss": 0.5887557111270854,
+      "confusion_matrix": [
+        [
+          60,
+          247
+        ],
+        [
+          18,
+          574
+        ]
+      ]
+    },
+    "random_forest": {
+      "rows": 899,
+      "positive_rows": 592,
+      "positive_prevalence": 0.6585094549499444,
+      "accuracy": 0.7419354838709677,
+      "balanced_accuracy": 0.6574329826569241,
+      "precision": 0.7452316076294278,
+      "recall": 0.9239864864864865,
+      "f1": 0.8250377073906485,
+      "roc_auc": 0.7314491812659565,
+      "average_precision": 0.8231765055417355,
+      "brier_score": 0.1883772592476481,
+      "log_loss": 0.5611663993011816,
+      "confusion_matrix": [
+        [
+          120,
+          187
+        ],
+        [
+          45,
+          547
+        ]
+      ]
+    }
+  },
+  "selected_roc_auc_95_interval": {
+    "low": 0.6847375386870019,
+    "high": 0.7636645047169812,
+    "valid_resamples": 1000,
+    "requested_resamples": 1000,
+    "method": "participant-cluster percentile bootstrap",
+    "seed": 2026,
+    "warning": "Only six test participants; this interval is exploratory."
+  },
+  "plots": [
+    "classification_roc_pr.png",
+    "classification_confusion_calibration.png"
+  ],
+  "sklearn_version": "1.7.2",
+  "processed_dataset_sha256": "093002578085995410cf1266a72fc59f364987215e8dc47303b73c9998f07b17",
+  "limitations": [
+    "This is an added portfolio classification task, not the original study endpoint.",
+    "Any recorded steps is not a health improvement label; missing outcomes are excluded.",
+    "Six test participants limit generalization; repeated rows are not independent people.",
+    "No oversampling or generated outcome labels; preprocessing is fitted on train only.",
+    "Predictions condition on delivered action; they do not estimate treatment effects."
+  ]
+}

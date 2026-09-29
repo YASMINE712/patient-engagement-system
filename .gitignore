@@ -1,24 +1,36 @@
-# Python
-*.pyc
-*.pyo
-*.pyd
-__pycache__/
-
-# Virtual environment
+# Local Python environments and caches
 .venv/
+.venv-local/
 venv/
+newenv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.coverage
+htmlcov/
+.test-runs/
 
-# Environment variables
+# Secrets, user data, generated models and runtime state
 .env
-
-# SQLite databases
+.env.*
+!.env.example
+instance/
 *.db
+*.db-*
+*.sqlite*
+questionnaire_data.csv
+Scientifically_Grounded_Dataset.csv
+data/raw/*
+!data/raw/.gitkeep
+data/processed/
+data/synthetic/
+artifacts/
+reports/generated/
+*.joblib
+*.pkl
 
-# Logs
-*.log
-
-# .vscode settings
+# Local editor and operating-system files
 .vscode/
-
-# Git Large File Storage files
-q_table.json
+.idea/
+.DS_Store
+Thumbs.db

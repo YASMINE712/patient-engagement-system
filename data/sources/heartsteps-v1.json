@@ -1,0 +1,35 @@
+{
+  "repository": "https://github.com/klasnja/HeartStepsV1",
+  "commit": "3016391de426116bdef41880d72bc8cd4b9b2477",
+  "license": "CC-BY-4.0",
+  "files": [
+    {
+      "path": "data_files/users.csv",
+      "filename": "users.csv",
+      "sha256": "b07d93573b014e0ae1da822c616e9e811551ad77dc8390fb52a03202f7df0ed1",
+      "bytes": 21610,
+      "url": "https://raw.githubusercontent.com/klasnja/HeartStepsV1/3016391de426116bdef41880d72bc8cd4b9b2477/data_files/users.csv"
+    },
+    {
+      "path": "data_files/suggestions.csv",
+      "filename": "suggestions.csv",
+      "sha256": "60ee7896183d7084a084f9a6e8ef2d0afea2e7fecdb41d6b15382ce1745c5ddb",
+      "bytes": 4371854,
+      "url": "https://raw.githubusercontent.com/klasnja/HeartStepsV1/3016391de426116bdef41880d72bc8cd4b9b2477/data_files/suggestions.csv"
+    },
+    {
+      "path": "LICENSE",
+      "filename": "LICENSE",
+      "sha256": "f5b745ef98087f531e719ee8ca6a96809444573ecc7173c6fa68eaad39b3cc3f",
+      "bytes": 18658,
+      "url": "https://raw.githubusercontent.com/klasnja/HeartStepsV1/3016391de426116bdef41880d72bc8cd4b9b2477/LICENSE"
+    },
+    {
+      "path": "README.md",
+      "filename": "README.md",
+      "sha256": "553842f14c9316276b757bd7e587ba23197a583a8aaafea2bab80f5609d2c69c",
+      "bytes": 8826,
+      "url": "https://raw.githubusercontent.com/klasnja/HeartStepsV1/3016391de426116bdef41880d72bc8cd4b9b2477/README.md"
+    }
+  ]
+}
