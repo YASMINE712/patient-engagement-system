@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Try ML prediction | My Health Friend</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/prediction.css') }}">
+  <script src="{{ url_for('static', filename='js/prediction.js') }}" defer></script>
+</head>
+<body>
+<header><a class="brand" href="/simulation">my health friend.</a><nav aria-label="Main navigation"><a href="/simulation">Your space</a><a href="/predict" aria-current="page">Try ML prediction</a><a href="/research">Learning lab</a></nav></header>
+<main>
+  <section class="intro"><p class="eyebrow">Explore the trained models</p><h1>A closer look at<br><em>your next small step.</em></h1><p>Try an example profile to estimate recorded activity in the next 30 minutes. Then explore how the models performed on held-out participants.</p><div class="tabs"><a href="#prediction-form">Try a prediction</a><a href="#evaluation">View model evaluation</a></div></section>
+  <section class="workspace">
+    <form id="prediction-form" class="panel"><p class="eyebrow">01 / Set the context</p><h2>Try an example</h2><p class="muted">Prefilled values are illustrative. Inputs are not saved.</p>
+      <div class="form-grid">
+        <label>Age<input name="age" type="number" min="19" max="64" step="1" value="30" required><small>19-64, the training age range</small></label>
+        <label>Recorded gender<select name="gender"><option value="female">Female</option><option value="male">Male</option></select><small>Categories recorded in this study</small></label>
+        <label>Daily decision slot<select name="planned_slot">{% for n in range(1,6) %}<option value="{{ n }}" {% if n == 3 %}selected{% endif %}>Slot {{ n }}</option>{% endfor %}</select><small>One of five planned daily slots</small></label>
+        <label>Study day<input name="study_day" type="number" min="1" max="62" step="1" value="14" required><small>Days since this participant's study start</small></label>
+        <label>Steps in the previous 30 minutes<input name="steps_previous_30m" type="number" min="0" max="5380" step="1" value="120"><small>Leave blank to use training-data imputation</small></label>
+        <label>Delivered suggestion<select name="action"><option value="no_suggestion">No suggestion</option><option value="walking">Walking suggestion</option><option value="sedentary_break">Sedentary-break suggestion</option></select><small>Observed context, not an action recommendation</small></label>
+      </div><button id="predict-button" type="submit" {% if not ready %}disabled{% endif %}>Run ML prediction <span aria-hidden="true">&rarr;</span></button>
+      <p id="prediction-status" role="status" aria-live="polite">{% if ready %}The trained models are ready.{% else %}Models are not available yet. Run: python scripts/run_pipeline.py --download{% endif %}</p>
+    </form>
+    <section class="panel result-panel" aria-labelledby="result-heading"><p class="eyebrow">02 / See the estimate</p><h2 id="result-heading">Your prediction</h2><div id="prediction-empty"><p>Choose your inputs and select <strong>Run ML prediction</strong>.</p><p class="muted">The step estimate and the activity probability come from two separately trained models.</p></div><div id="prediction-result" hidden aria-live="polite"><p class="result-label">Estimated recorded steps</p><p class="big-number"><span id="predicted-steps"></span><small> / next 30 minutes</small></p><div class="divider"></div><p class="result-label">Probability of any recorded steps</p><p class="big-number"><span id="activity-probability"></span></p><p id="activity-label" class="tag"></p><p class="muted" id="model-names"></p><p class="muted" id="imputation-note"></p></div><p class="result-footnote">These estimates describe activity patterns in HeartSteps data. Changing the suggestion field does not measure how much that suggestion would help you.</p></section>
+  </section>
+  <section id="evaluation"><p class="eyebrow">03 / Check the evidence</p><h2>Model evaluation</h2><p>Participants are kept separate across training, validation and test sets. Candidate settings are fixed; validation chooses each model. Test results are reported without retuning.</p>
+    {% if reports.get('regression') %}{% set r = reports.regression %}
+    <section class="panel" id="regression-evaluation"><div class="section-title"><div><p class="eyebrow">How many steps?</p><h3>Step-count regression</h3></div><span class="tag">Selected: {{ r.selected_model.replace('_',' ') }}</span></div><p>Lower MAE and RMSE are better. R² compares squared error with a constant test-mean predictor; it can be negative. ROC does not apply to this numeric target.</p>
+      <div class="table-wrap"><table><caption>Regression candidates: validation selection and held-out test evaluation</caption><thead><tr><th>Model</th><th>Validation MAE</th><th>Test MAE</th><th>Test RMSE</th><th>Test R²</th></tr></thead><tbody>{% for name, m in r.get('test_candidates', {}).items() %}<tr><th scope="row">{{ name.replace('_',' ') }}</th><td>{{ '%.2f'|format(r.validation[name].mae_steps) }}</td><td>{{ '%.2f'|format(m.mae_steps) }}</td><td>{{ '%.2f'|format(m.rmse_steps) }}</td><td>{{ '%.3f'|format(m.r2) }}</td></tr>{% endfor %}</tbody></table></div>
+      <p class="muted">Test: {{ r.test.selected_model.rows }} observed decision windows from {{ r.test.selected_model.participants }} participants. Errors are in steps.</p>
+      {% if r.get('plots') %}<figure><img src="/predict/figure/regression_diagnostics.png" alt="Held-out observed versus predicted step counts and regression residuals"><figcaption>Figure 1. Selected regression model: predicted versus observed counts and residuals.</figcaption></figure>{% endif %}
+    </section>{% endif %}
+    {% if reports.get('classification') %}{% set c = reports.classification %}
+    <section class="panel" id="classification-evaluation"><div class="section-title"><div><p class="eyebrow">Any steps or zero steps?</p><h3>Activity classification</h3></div><span class="tag">Selected: {{ c.selected_model.replace('_',' ') }}</span></div><p>Positive means more than zero recorded steps in the next 30 minutes. Missing outcomes are excluded. The decision threshold is fixed at 0.50; it is not a health target.</p>
+      <div class="table-wrap"><table><caption>Classification candidates: validation ROC-AUC and held-out test metrics</caption><thead><tr><th>Model</th><th>Val. AUC</th><th>Test AUC</th><th>AP</th><th>Accuracy</th><th>Precision</th><th>Recall</th><th>F1</th><th>Brier</th></tr></thead><tbody>{% for name, m in c.test_candidates.items() %}<tr><th scope="row">{{ name.replace('_',' ') }}</th><td>{{ '%.3f'|format(c.validation[name].roc_auc) }}</td>{% for key in ['roc_auc','average_precision','accuracy','precision','recall','f1','brier_score'] %}<td>{{ '%.3f'|format(m[key]) }}</td>{% endfor %}</tr>{% endfor %}</tbody></table></div>
+      <p class="muted">AP = average precision. Brier measures probability error (lower is better). Test positive prevalence: {{ '%.1f'|format(100*c.test_candidates[c.selected_model].positive_prevalence) }}%. High recall alone can be misleading when a baseline predicts everyone as positive.</p>
+      <figure><img src="/predict/figure/classification_roc_pr.png" alt="Test ROC and precision-recall curves for the baseline, logistic regression and random forest"><figcaption>Figure 2. Held-out ROC and precision-recall curves for all three classification candidates.</figcaption></figure>
+      <figure><img src="/predict/figure/classification_confusion_calibration.png" alt="Selected classifier confusion matrix and probability reliability diagram"><figcaption>Figure 3. Selected classifier: confusion matrix at threshold 0.50 and probability calibration.</figcaption></figure>
+      <p class="muted">Selected ROC-AUC exploratory 95% participant-bootstrap interval: {{ '%.3f'|format(c.selected_roc_auc_95_interval.low) }}-{{ '%.3f'|format(c.selected_roc_auc_95_interval.high) }}. Only six test participants; repeated windows are not independent people.</p>
+    </section>{% endif %}
+    {% if not reports %}<div class="panel"><p>Evaluation will appear after the training pipeline completes.</p></div>{% endif %}
+  </section><section class="panel compact"><h3>Want to see a Q-table learn?</h3><p>The recommendation-learning experiment is separate from these supervised models. Run fictional feedback sessions and inspect how the action values change.</p><a href="/research" class="text-link">Open the learning lab &rarr;</a></section>
+</main><footer>My Health Friend / Model explorer <a href="/simulation">Back to your space</a></footer>
+</body></html>

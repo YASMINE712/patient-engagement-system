@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Health Friend</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
+<style>
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f7f8fa;
+    margin: 0;
+    padding: 0;
+    color: #333;
+    line-height: 1.6;
+}
+
+header {
+    background-color: #007BFF;
+    color: white;
+    text-align: center;
+    padding: 20px 0;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+header h1 {
+    margin: 0;
+    font-size: 28px;
+}
+
+/* Hero Section Styles */
+.hero-section {
+    max-width: 900px;
+    margin: 40px auto;
+    background: white;
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+.hero-section h2 {
+    font-size: 24px;
+    color: #007BFF;
+    margin-bottom: 15px;
+}
+
+.hero-section p {
+    margin-bottom: 20px;
+    font-size: 16px;
+    color: #555;
+}
+
+.hero-section button {
+    padding: 12px 20px;
+    font-size: 16px;
+    margin: 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    background-color: #007BFF;
+    color: white;
+    transition: background-color 0.3s ease;
+}
+
+.hero-section button:hover {
+    background-color: #0056b3;
+}
+
+.hero-section button:focus {
+    outline: 2px dashed #0056b3;
+    outline-offset: 4px;
+}
+
+/* Footer Styles */
+footer {
+    text-align: center;
+    background-color: #f1f1f1;
+    padding: 15px 0;
+    margin-top: 30px;
+    border-top: 1px solid #ddd;
+    font-size: 14px;
+    color: #666;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .hero-section {
+        padding: 20px;
+    }
+
+    .hero-section h2 {
+        font-size: 20px;
+    }
+
+    .hero-section p {
+        font-size: 14px;
+    }
+
+    .hero-section button {
+        font-size: 14px;
+        padding: 10px 15px;
+    }
+}
+</style>
+</head>
+<body>
+
+    <!-- Header Section -->
+    <header>
+        <h1>My Health Friend</h1>
+    </header>
+
+    <!-- Hero Section (Main Info) -->
+    <div class="hero-section">
+        <h2>Our Mission</h2>
+        <p><a href="{{ url_for('simulation.index') }}">Open your personal space</a></p>
+        <p>Welcome to the My Health Friend! Our mission is to empower individuals to track their health and wellness, providing personalized insights to improve their overall well-being. We aim to provide users with a comprehensive platform to engage with their health data, set health goals, and make informed decisions for a healthier life.</p>
+        <p>Join us today and start your journey toward better health and wellness.</p>
+        
+        <!-- Buttons to login or sign up -->
+        <div>
+            <button onclick="window.location.href='/login';">Log In</button>
+            <button onclick="window.location.href='/signup';">Sign Up</button>
+        </div>
+    </div>
+
+    <!-- Footer Section -->
+    <footer>
+        <p>My Health Friend | All Rights Reserved</p>
+    </footer>
+
+</body>
+</html>

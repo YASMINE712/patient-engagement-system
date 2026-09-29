@@ -1,0 +1,12 @@
+{
+  "pipeline": "my-health-friend-v2",
+  "mode": "full",
+  "report_hashes": {
+    "data_quality.json": "594fe99c5ccbcdab380163da3eca0eea9352f3083a0cefeb22facf0e63e83589",
+    "heartsteps_model.json": "a3db9669a3b028aecd3ea2b5c7e1d85ce31feb0b6a635929247854abe6ec35b8",
+    "heartsteps_classifier.json": "0df70d6f645742768b2923973b28f6b2e41d49c6e9627b6b477110a03c9c1ef6",
+    "simulation_benchmark.json": "59999b4f51fcbe2210a434044259d844d8f73ffe9d32940410828219653b8f7d"
+  },
+  "sources_separated": true,
+  "clinical_validation": false
+}

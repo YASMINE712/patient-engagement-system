@@ -1,0 +1,96 @@
+{
+  "source": "heartsteps_v1_observed",
+  "task": "predict recorded steps in the next 30-minute window given context and delivered action",
+  "selection_metric": "validation MAE in steps",
+  "selected_model": "random_forest",
+  "features": [
+    "age",
+    "gender",
+    "planned_slot",
+    "study_day",
+    "steps_previous_30m",
+    "action"
+  ],
+  "target": "log1p(steps_next_30m)",
+  "validation": {
+    "median_baseline": {
+      "rows": 963,
+      "participants": 6,
+      "mae_steps": 219.2668743509865,
+      "rmse_steps": 443.58713836745306,
+      "r2": -0.15887365540837917,
+      "rmse_log1p_steps": 2.6890009273365165
+    },
+    "ridge": {
+      "rows": 963,
+      "participants": 6,
+      "mae_steps": 215.55929830800275,
+      "rmse_steps": 439.5063628735463,
+      "r2": -0.1376496381308725,
+      "rmse_log1p_steps": 2.462556751644781
+    },
+    "random_forest": {
+      "rows": 963,
+      "participants": 6,
+      "mae_steps": 208.59090221458197,
+      "rmse_steps": 433.09579874307883,
+      "r2": -0.10470454550425501,
+      "rmse_log1p_steps": 2.386463723643474
+    }
+  },
+  "test": {
+    "selected_model": {
+      "rows": 899,
+      "participants": 6,
+      "mae_steps": 216.13023594708778,
+      "rmse_steps": 417.0394704212051,
+      "r2": -0.14848498029365387,
+      "rmse_log1p_steps": 2.4343336639866746
+    },
+    "median_baseline": {
+      "rows": 899,
+      "participants": 6,
+      "mae_steps": 230.08120133481646,
+      "rmse_steps": 425.13006188893627,
+      "r2": -0.19347858586611566,
+      "rmse_log1p_steps": 2.80944225076619
+    }
+  },
+  "test_candidates": {
+    "median_baseline": {
+      "rows": 899,
+      "participants": 6,
+      "mae_steps": 230.08120133481646,
+      "rmse_steps": 425.13006188893627,
+      "r2": -0.19347858586611566,
+      "rmse_log1p_steps": 2.80944225076619
+    },
+    "ridge": {
+      "rows": 899,
+      "participants": 6,
+      "mae_steps": 233.6514604710631,
+      "rmse_steps": 455.7933352526196,
+      "r2": -0.37185098708496156,
+      "rmse_log1p_steps": 2.547901892211396
+    },
+    "random_forest": {
+      "rows": 899,
+      "participants": 6,
+      "mae_steps": 216.13023594708778,
+      "rmse_steps": 417.0394704212051,
+      "r2": -0.14848498029365387,
+      "rmse_log1p_steps": 2.4343336639866746
+    }
+  },
+  "sklearn_version": "1.7.2",
+  "processed_dataset_sha256": "093002578085995410cf1266a72fc59f364987215e8dc47303b73c9998f07b17",
+  "limitations": [
+    "Only six held-out test participants; repeated rows are not independent participants.",
+    "Observational outcome prediction is not a causal effect estimate or a recommendation policy.",
+    "Missing outcomes are excluded; missing input values are imputed using training data only.",
+    "No data augmentation and no test-driven hyperparameter selection."
+  ],
+  "plots": [
+    "regression_diagnostics.png"
+  ]
+}

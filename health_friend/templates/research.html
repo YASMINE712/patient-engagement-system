@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Learning Lab | My Health Friend</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/research.css') }}">
+  <script src="{{ url_for('static', filename='js/research.js') }}" defer></script>
+</head>
+<body>
+  <header><a href="{{ url_for('home') }}">My Health Friend</a><a href="/predict">Try ML prediction</a><a href="/simulation">Back to your space</a></header>
+  <main>
+    <section class="intro">
+      <p class="eyebrow">Synthetic recommendation experiment</p>
+      <h1>Watch feedback change a recommendation policy.</h1>
+      <p>Compare three approaches with fictional users. Explore how preferences, repetition, and missing feedback affect learning.</p>
+      <p class="notice">Research view: synthetic experiments and observed-data results are reported separately.</p>
+    </section>
+    <section class="panel">
+      <form id="simulation-form">
+        <label>Scenario<select id="scenario"><option value="stationary">Stable preferences</option><option value="preference_shift">Preferences change halfway</option><option value="high_nonresponse">Frequent missing feedback</option></select></label>
+        <label>Random seed<input id="seed" type="number" min="0" max="2147483647" value="2026" required></label>
+        <label>Interactions<input id="steps" type="number" min="20" max="1000" value="300" required></label>
+        <button id="run" type="submit">Run experiment</button>
+      </form>
+      <p id="status" role="status" aria-live="polite">Choose a scenario, then run the experiment.</p>
+    </section>
+    <section id="results" hidden>
+      <div class="cards" id="metric-cards"></div>
+      <section class="panel"><div class="section-title"><h2>Learning over interactions</h2><button id="download" type="button" class="secondary">Download this run</button></div>
+        <p>Average simulated reward so far. Every policy starts fresh in this interactive run.</p>
+        <div class="legend"><span class="random">Random</span><span class="profile">Profile matcher</span><span class="bandit">Learning table</span></div>
+        <svg id="learning-chart" viewBox="0 0 900 320" role="img" aria-label="Average simulated reward by interaction count"></svg>
+      </section>
+      <section class="panel"><h2>What the table learned</h2><p>A state groups goal, time budget, and stated preference. Values estimate simulated usefulness. Unseen actions start at 0.5. Missing feedback causes no update.</p>
+        <div class="table-wrap"><table><thead><tr><th>Profile group</th><th>Suggestion ID</th><th>Learned value</th></tr></thead><tbody id="q-values"></tbody></table></div>
+      </section>
+    </section>
+    <section class="panel"><h2>Reproducible benchmark</h2><p>The saved benchmark trains on one simulated population, chooses a learning rate on a second, and evaluates on fresh users across five seeds. It is separate from the short sandbox run above.</p>
+      {% if reports.get('simulation_benchmark') %}
+      <div class="table-wrap"><table><thead><tr><th>Scenario</th><th>Mode</th><th>Policy</th><th>Mean reward</th><th>SD across seeds</th></tr></thead><tbody>
+        {% for row in reports['simulation_benchmark']['aggregates'] %}<tr><td>{{ row.scenario }}</td><td>{{ row.mode }}</td><td>{{ row.policy }}</td><td>{{ '%.3f'|format(row.mean_reward) }}</td><td>{{ '%.3f'|format(row.reward_sd_across_seeds) }}</td></tr>{% endfor %}
+      </tbody></table></div><p><a href="{{ url_for('simulation.report', name='SIMULATION_BENCHMARK.md') }}">Download full benchmark report</a></p>
+      {% else %}<p>The saved benchmark has not been run yet. The interactive sandbox is ready to use.</p>{% endif %}
+    </section>
+    <section class="panel"><p class="eyebrow">Separate observed-data experiment</p><h2>HeartSteps activity prediction</h2><p>This experiment predicts recorded activity after a decision. It does not prove that sending a suggestion caused more activity, and its records are not mixed with synthetic rewards.</p>
+      {% if reports.get('heartsteps_model') %}
+        {% set report = reports['heartsteps_model'] %}
+        <p>Selected on validation data: <strong>{{ report.selected_model }}</strong>. Held-out test MAE: <strong>{{ '%.1f'|format(report.test.selected_model.mae_steps) }} steps</strong>, across {{ report.test.selected_model.participants }} participants.</p>
+        <p><a href="{{ url_for('simulation.report', name='HEARTSTEPS_MODEL.md') }}">Download prediction report</a></p>
+      {% else %}<p>No prediction report has been generated yet.</p>{% endif %}
+      <p><a href="{{ url_for('simulation.report', name='DATA_QUALITY.md') }}">Download data-quality report</a></p>
+    </section>
+  </main>
+  <footer>My Health Friend | Reproducible experiments, explicit limitations.</footer>
+</body>
+</html>

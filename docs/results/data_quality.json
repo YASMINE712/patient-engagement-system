@@ -1,0 +1,79 @@
+{
+  "pipeline_version": "1.0.0",
+  "split_seed": 2026,
+  "source_commit": "3016391de426116bdef41880d72bc8cd4b9b2477",
+  "heartsteps": {
+    "rows": 8274,
+    "participants": 37,
+    "source_columns": {
+      "users": 117,
+      "suggestions": 86
+    },
+    "duplicate_decision_keys": 0,
+    "available_decisions": 6590,
+    "eligible_decisions": 6589,
+    "eligible_outcome_rows": 5800,
+    "missing_previous_steps": 1012,
+    "missing_outcomes": 1041,
+    "missing_decision_timestamps": 1,
+    "missing_scheduled_timestamps": 1,
+    "available_unknown_actions": 1,
+    "sent_while_unavailable": 3,
+    "explicit_usefulness_ratings": 2030,
+    "action_counts": {
+      "no_suggestion": 3621,
+      "walking": 2189,
+      "sedentary_break": 1728,
+      "unknown": 736
+    },
+    "invalid_temperature_measurements_excluded_from_features": 35,
+    "offset_values_exceeding_plausible_minutes": 8273,
+    "split_participants": {
+      "test": 6,
+      "train": 25,
+      "validation": 6
+    },
+    "split_rows": {
+      "train": 5526,
+      "test": 1385,
+      "validation": 1363
+    },
+    "feature_missingness": {
+      "age": 0,
+      "gender": 0,
+      "planned_slot": 0,
+      "study_day": 1,
+      "steps_previous_30m": 1012
+    },
+    "warnings": [
+      "Naive source utime strings are interpreted as UTC; no local-time conversion is performed.",
+      "GMT offset magnitudes disagree with the documented minute units; offset-derived features are excluded.",
+      "Temperature is excluded from this conservative baseline, including out-of-range values.",
+      "Missing step outcomes are preserved, not replaced by zero.",
+      "Recorded action flags describe delivery, not verified assignment propensities; off-policy evaluation is not enabled.",
+      "Study day uses UTC calendar days since the first observed scheduled slot, not travel-adjusted study days."
+    ]
+  },
+  "legacy": {
+    "rows": 374,
+    "columns_original": 17,
+    "unique_profiles": 132,
+    "repeated_profile_rows": 242,
+    "profiles_with_differing_advice": 78,
+    "unique_suggestions": {
+      "Stress Management": 6,
+      "Sleep Hygiene": 6,
+      "Exercise and Physical Activity": 6,
+      "Diet and Nutrition": 5
+    },
+    "provenance": "Original source, recommendation-label method, and redistribution rights are unverified.",
+    "note": "Literal None in Sleep Disorder is a category, not a missing value. Duplicate profiles are retained and grouped."
+  },
+  "outputs_sha256": {
+    "data/processed/heartsteps-v1/decisions.csv": "093002578085995410cf1266a72fc59f364987215e8dc47303b73c9998f07b17",
+    "data/processed/heartsteps-v1/features.csv": "6b36c84d38384b78a57f49ac3c11a5912e4c50ad4d41e97d06ac2feb9b60daf6",
+    "data/processed/heartsteps-v1/labels.csv": "40e83e00cef150e2471729cc588bd41be5f76bee12f229144f88f9ef1561a0b8",
+    "data/processed/heartsteps-v1/participant_splits.csv": "7ae82e584852017ac53b227f34f5c5eb3a8a681cbe38262fd29b56276eae4805",
+    "data/processed/legacy/wellness.csv": "0843356dc3a475d53bbf50f698841ade418697ff2d5e070522591ea15081677e"
+  }
+}
