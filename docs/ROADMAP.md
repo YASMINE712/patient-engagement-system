@@ -1,6 +1,6 @@
 # Implementation plan
 
-Status: the local baseline, source audit, ETL, synthetic environment, policies, evaluation, and Learning Lab are implemented. Reproducible report snapshots and local tests are available. The existing YASMINE712/patient-engagement-system repository is the chosen destination; the updated source is published on ml-portfolio-update and [pull request 1](https://github.com/YASMINE712/patient-engagement-system/pull/1) contains the migration. Hosted checks run through GitHub Actions; Docker configuration is provided but unverified on this host.
+Status: the local baseline, source audit, ETL, synthetic environment, policies, evaluation, and Learning Lab are implemented. Reproducible report snapshots and local tests are available. The existing YASMINE712/patient-engagement-system repository is the chosen destination; the updated source is published on main and [merged pull request 1](https://github.com/YASMINE712/patient-engagement-system/pull/1) records the migration. Hosted checks run through GitHub Actions; Docker configuration is provided but unverified on this host.
 
 The steps below record the agreed responsibilities and acceptance criteria. The implemented reward learner is a contextual bandit. Full sequential Q-learning and automatic production promotion remain explicitly outside this version.
 

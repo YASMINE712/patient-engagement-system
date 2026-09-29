@@ -71,10 +71,10 @@ These experiences use different mechanisms. The personal space ranks authored id
 
 ## Quick start
 
-The updated version is on `ml-portfolio-update`. Use Python 3.12.
+Use Python 3.12. The updated product is available on `main`.
 
 ```bash
-git clone --branch ml-portfolio-update https://github.com/YASMINE712/patient-engagement-system.git
+git clone https://github.com/YASMINE712/patient-engagement-system.git
 cd patient-engagement-system
 ```
 

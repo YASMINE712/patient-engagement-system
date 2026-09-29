@@ -1,6 +1,6 @@
 # Repository update
 
-The updated project continues the existing `YASMINE712/patient-engagement-system` history from commit `abb4e1d39f91e28cc9664783d4dfb90258344e7b`. It is prepared on the separate `ml-portfolio-update` branch for review before merging into `main`.
+The updated project continues the existing `YASMINE712/patient-engagement-system` history from commit `abb4e1d39f91e28cc9664783d4dfb90258344e7b`. It was developed on `ml-portfolio-update` and merged into `main` through [pull request 1](https://github.com/YASMINE712/patient-engagement-system/pull/1) after local and hosted checks passed.
 
 ## What moved
 

@@ -10,4 +10,4 @@ Verified locally on Windows with Python 3.12:
 - The redesigned personal space passed browser checks for preference matching, feedback reordering, saved-idea persistence after refresh, reset, dialog keyboard dismissal, and desktop/mobile layouts. The relocated research dashboard still runs experiments and renders its chart and Q-table.
 - Real and synthetic outputs remain separately labeled and stored.
 
-Docker is unavailable on this host, so the image has not been built. The updated source is published on `ml-portfolio-update` in the existing repository. [Hosted CI runs](https://github.com/YASMINE712/patient-engagement-system/actions/workflows/tests.yml) show current cloud verification status. Automatic production promotion is not implemented.
+Docker is unavailable on this host, so the image has not been built. The updated source is published on `main` in the existing repository. [Hosted CI runs](https://github.com/YASMINE712/patient-engagement-system/actions/workflows/tests.yml) show current cloud verification status. The merge commit passed the Linux test and simulation-check workflow. Automatic production promotion is not implemented.
